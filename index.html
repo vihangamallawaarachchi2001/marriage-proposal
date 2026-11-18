@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#140d28" />
+  <title>For Bhagya, with all my love</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap');
+
+    :root {
+      --ink: #fff8fc;
+      --muted: #dec9da;
+      --rose: #ff7eaa;
+      --rose-light: #ffc3d9;
+      --violet: #9b79ff;
+      --glass: rgba(255, 255, 255, .095);
+      --line: rgba(255, 255, 255, .18);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: #140d28;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      width: 34rem;
+      height: 34rem;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .33;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before { background: #9c3484; top: -12rem; left: -10rem; animation: drift 13s ease-in-out infinite alternate; }
+    body::after { background: #4435b8; right: -13rem; bottom: -10rem; animation: drift 16s ease-in-out -4s infinite alternate-reverse; }
+
+    .scene { position: relative; z-index: 1; min-height: 100vh; }
+    .noise { position: fixed; inset: 0; opacity: .045; pointer-events: none; z-index: 3; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); }
+
+    .topbar { width: min(1100px, calc(100% - 40px)); margin: auto; padding: 26px 0; display: flex; align-items: center; justify-content: space-between; }
+    .brand { color: var(--rose-light); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; }
+    .heart-mark { color: var(--rose); font-size: 22px; animation: heartbeat 1.8s ease-in-out infinite; }
+
+    .hero { width: min(1100px, calc(100% - 40px)); min-height: calc(100vh - 78px); margin: auto; display: grid; place-items: center; text-align: center; position: relative; padding: 50px 0 100px; }
+    .hero-content { max-width: 760px; position: relative; z-index: 2; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 12px; color: var(--rose-light); font-size: 12px; letter-spacing: .24em; text-transform: uppercase; }
+    .eyebrow::before, .eyebrow::after { content: ''; width: 34px; height: 1px; background: var(--rose); opacity: .8; }
+    h1, h2, .script { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; }
+    h1 { margin: 20px 0 14px; font-size: clamp(64px, 12vw, 142px); line-height: .78; letter-spacing: -.055em; text-shadow: 0 10px 50px rgba(255, 83, 147, .22); }
+    h1 span { display: block; color: var(--rose-light); font-style: italic; }
+    .hero-copy { max-width: 550px; margin: 28px auto 35px; color: var(--muted); font-size: clamp(15px, 2vw, 19px); line-height: 1.7; }
+
+    .cta-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 13px; }
+    button { font: inherit; color: inherit; cursor: pointer; border: 0; }
+    .primary, .soft { border-radius: 100px; padding: 15px 24px; transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+    .primary { color: #321226; background: linear-gradient(135deg, #ffd1e1, #ff82ad); box-shadow: 0 10px 30px rgba(255, 102, 158, .25); font-weight: 700; }
+    .primary:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 16px 38px rgba(255, 102, 158, .38); }
+    .soft { color: var(--rose-light); background: var(--glass); border: 1px solid var(--line); }
+    .soft:hover { background: rgba(255, 255, 255, .16); transform: translateY(-3px); }
+
+    .scroll-cue { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: var(--muted); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+    .scroll-cue::after { content: ''; display: block; width: 1px; height: 34px; margin: 10px auto 0; background: linear-gradient(var(--rose), transparent); animation: down 1.5s ease-in-out infinite; }
+
+    .floating-hearts, .stars { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .floating-hearts span { position: absolute; bottom: -70px; color: var(--rose); opacity: 0; font-size: var(--size); animation: floatUp var(--time) linear var(--delay) infinite; left: var(--left); filter: drop-shadow(0 0 12px rgba(255, 126, 170, .65)); }
+    .stars span { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #fff; left: var(--left); top: var(--top); animation: twinkle var(--time) ease-in-out var(--delay) infinite; }
+
+    .story { width: min(1000px, calc(100% - 40px)); margin: 0 auto; padding: 80px 0 120px; }
+    .section-label { color: var(--rose-light); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
+    .story h2 { font-size: clamp(43px, 7vw, 78px); line-height: .95; max-width: 640px; margin: 12px 0 46px; }
+    .story h2 em { color: var(--rose); font-style: normal; }
+    .memory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .memory { min-height: 230px; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(150deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, .035)); backdrop-filter: blur(12px); transition: transform .4s ease, border-color .4s ease; }
+    .memory:hover { transform: translateY(-8px) rotate(-1deg); border-color: rgba(255, 195, 217, .75); }
+    .memory:nth-child(2) { transform: translateY(25px); }
+    .memory:nth-child(2):hover { transform: translateY(17px) rotate(1deg); }
+    .memory-icon { font-size: 29px; margin-bottom: auto; }
+    .memory h3 { margin: 20px 0 7px; color: var(--rose-light); font-family: 'Cormorant Garamond', serif; font-size: 29px; font-weight: 600; }
+    .memory p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    .proposal-wrap { padding: 70px 0 145px; text-align: center; }
+    .proposal-card { position: relative; overflow: hidden; max-width: 800px; margin: auto; padding: clamp(35px, 7vw, 78px) 25px; border: 1px solid rgba(255, 195, 217, .38); border-radius: 34px; background: radial-gradient(circle at 50% 0%, rgba(255, 126, 170, .2), transparent 52%), rgba(255, 255, 255, .07); box-shadow: 0 30px 100px rgba(0, 0, 0, .2); }
+    .proposal-card::before { content: '♡'; position: absolute; font-family: serif; font-size: 330px; line-height: .7; color: rgba(255, 126, 170, .055); left: 50%; top: 20px; transform: translateX(-50%); }
+    .proposal-card > * { position: relative; z-index: 1; }
+    .proposal-card h2 { margin: 14px 0 20px; font-size: clamp(55px, 10vw, 105px); line-height: .8; }
+    .proposal-card h2 span { display: block; color: var(--rose-light); font-style: italic; }
+    .proposal-card p { max-width: 530px; margin: 0 auto 30px; color: var(--muted); line-height: 1.7; }
+    .answer { min-height: 28px; margin-top: 23px; color: var(--rose-light); font-family: 'Cormorant Garamond', serif; font-size: 27px; opacity: 0; transition: opacity .4s ease; }
+    .answer.show { opacity: 1; }
+    .footer { padding: 0 20px 30px; text-align: center; color: #ac91ad; font-size: 12px; }
+
+    .burst { position: fixed; z-index: 5; pointer-events: none; animation: burst 1.3s ease-out forwards; font-size: 22px; }
+    .shake { animation: shake .45s ease; }
+    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.2); } 30% { transform: scale(1); } 45% { transform: scale(1.14); } }
+    @keyframes drift { to { transform: translate(90px, 40px) scale(1.1); } }
+    @keyframes down { 50% { opacity: .3; transform: translateY(8px); } }
+    @keyframes floatUp { 0% { transform: translateY(0) rotate(0); opacity: 0; } 10% { opacity: .65; } 90% { opacity: .3; } 100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; } }
+    @keyframes twinkle { 0%, 100% { transform: scale(.3); opacity: .15; } 50% { transform: scale(1.5); opacity: .9; } }
+    @keyframes burst { 0% { transform: translate(0, 0) scale(.5) rotate(0); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(1.2) rotate(var(--r)); opacity: 0; } }
+    @keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+    @media (max-width: 680px) { .memory-grid { grid-template-columns: 1fr; } .memory { min-height: 180px; } .memory:nth-child(2), .memory:nth-child(2):hover { transform: none; } .hero { padding-top: 35px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="floating-hearts" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <main class="scene">
+    <nav class="topbar" aria-label="Page header">
+      <div class="brand">A little love letter</div>
+      <div class="heart-mark" aria-hidden="true">♥</div>
+    </nav>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <div class="eyebrow">To the one my heart chose</div>
+        <h1 id="hero-title">Bhagya,<span>my forever.</span></h1>
+        <p class="hero-copy">Some people make a moment beautiful. You make every moment feel like home. I made this little corner of the internet for the biggest question in my heart.</p>
+        <div class="cta-row">
+          <a class="primary" href="#the-question">Open my heart&nbsp; ↓</a>
+          <button class="soft" id="loveButton" type="button">Send a little love&nbsp; ♥</button>
+        </div>
+      </div>
+      <div class="scroll-cue">keep scrolling</div>
+    </section>
+
+    <section class="story" aria-labelledby="story-title">
+      <div class="section-label">Why you, Bhagya</div>
+      <h2 id="story-title">My favorite place has always been <em>beside you.</em></h2>
+      <div class="memory-grid">
+        <article class="memory"><div class="memory-icon">✦</div><h3>You make me laugh</h3><p>Even ordinary days sparkle when I get to share them with you.</p></article>
+        <article class="memory"><div class="memory-icon">☾</div><h3>You feel like home</h3><p>With you, my heart can finally exhale. Quietly, completely, forever.</p></article>
+        <article class="memory"><div class="memory-icon">♡</div><h3>You are my choice</h3><p>In every lifetime, through every season, I would find you again.</p></article>
+      </div>
+    </section>
+
+    <section class="proposal-wrap" id="the-question" aria-labelledby="question-title">
+      <div class="proposal-card">
+        <div class="section-label">The question I have been carrying</div>
+        <h2 id="question-title">Bhagya,<span>will you marry me?</span></h2>
+        <p>I promise to choose you on the easy days, hold you close on the hard ones, and keep finding new reasons to fall in love with you for the rest of our lives.</p>
+        <div class="cta-row">
+          <button class="primary" id="yesButton" type="button">Yes, a thousand times ♥</button>
+          <button class="soft" id="laterButton" type="button">I need a moment</button>
+        </div>
+        <div class="answer" id="answer" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+    <footer class="footer">Made with an unreasonable amount of love, just for Bhagya.</footer>
+  </main>
+
+  <script>
+    const hearts = document.querySelector('.floating-hearts');
+    const stars = document.querySelector('.stars');
+    const heartShapes = ['♥', '♡', '❤', '✦'];
+    for (let i = 0; i < 24; i++) {
+      const heart = document.createElement('span');
+      heart.textContent = heartShapes[i % heartShapes.length];
+      heart.style.setProperty('--left', `${Math.random() * 100}%`);
+      heart.style.setProperty('--size', `${12 + Math.random() * 22}px`);
+      heart.style.setProperty('--time', `${9 + Math.random() * 12}s`);
+      heart.style.setProperty('--delay', `${-Math.random() * 18}s`);
+      hearts.appendChild(heart);
+    }
+    for (let i = 0; i < 45; i++) {
+      const star = document.createElement('span');
+      star.style.setProperty('--left', `${Math.random() * 100}%`);
+      star.style.setProperty('--top', `${Math.random() * 100}%`);
+      star.style.setProperty('--time', `${2 + Math.random() * 4}s`);
+      star.style.setProperty('--delay', `${-Math.random() * 4}s`);
+      stars.appendChild(star);
+    }
+
+    function burst(count = 38) {
+      const symbols = ['♥', '♡', '✦', '❤', '✨'];
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement('span');
+        particle.className = 'burst';
+        particle.textContent = symbols[i % symbols.length];
+        particle.style.left = `${50 + (Math.random() * 20 - 10)}%`;
+        particle.style.top = `${48 + (Math.random() * 12 - 6)}%`;
+        particle.style.color = ['#ff7eaa', '#ffc3d9', '#fff', '#a98cff'][i % 4];
+        particle.style.setProperty('--x', `${Math.random() * 500 - 250}px`);
+        particle.style.setProperty('--y', `${Math.random() * -500 - 80}px`);
+        particle.style.setProperty('--r', `${Math.random() * 720 - 360}deg`);
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 1400);
+      }
+    }
+
+    document.getElementById('loveButton').addEventListener('click', (event) => {
+      burst(18);
+      event.currentTarget.textContent = 'Love received ♥';
+      setTimeout(() => { event.currentTarget.textContent = 'Send a little love  ♥'; }, 1800);
+    });
+
+    document.getElementById('yesButton').addEventListener('click', () => {
+      burst(75);
+      const answer = document.getElementById('answer');
+      answer.textContent = 'Our forever starts here. I love you, Bhagya. ♥';
+      answer.classList.add('show');
+    });
+
+    document.getElementById('laterButton').addEventListener('click', (event) => {
+      const button = event.currentTarget;
+      button.classList.add('shake');
+      button.textContent = 'Take all the time you need ♡';
+      setTimeout(() => button.classList.remove('shake'), 500);
+    });
+  </script>
+</body>
+</html>
